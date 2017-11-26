@@ -1,0 +1,29 @@
+<div class="c-card">
+  <div class="c-card__item">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <p class="o-form-element" [hidden] = "true">
+        <label class="c-label">ID :</label>
+        <input class="c-field"  type="text" formControlName="_id">
+      </p>
+      <p class="o-form-element">
+        <label class="c-label">First Name :</label>
+        <input class="c-field"  type="text" formControlName="name">
+      </p>
+      <p class="o-form-element">
+        <label class="c-label">Last Name :</label>
+        <input class="c-field"  type="text" formControlName="lastname">
+      </p>
+      <p class="o-form-element">
+        <label class="c-label">Phone :</label>
+        <input class="c-field"  type="text" formControlName="phone">
+      </p>
+      <p class="o-form-element">
+        <label class="c-label">Adress :</label>
+        <input class="c-field"  type="text" formControlName="adress">
+      </p>
+      <button type="submit" class="c-button c-button--info c-button--block">Save</button>
+    </form>
+  </div>
+</div>
+
+
