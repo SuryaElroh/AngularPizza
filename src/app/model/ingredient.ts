@@ -1,19 +1,16 @@
-export class Pizza {
+/**
+ * Define the model of the ingredient object
+ * It defines what attributes can have the object and the type of every attributes
+ */
+export class Ingredient {
   _id: string;
   name: string;
-  description: string;
+  weight: string;
   price: string;
-  cDate: string;
-  mDate: string;
-  image: string;
-  ingredients: Ingredient[];
 
-  constructor (name, description, price, cDate, mDate, image) {
+  constructor (name, weight, price) {
     this.name = name;
-    this.description = description;
+    this.weight = weight;
     this.price = price;
-    this.cDate = cDate;
-    this.mDate = mDate;
-    this.image = image;
   }
 }

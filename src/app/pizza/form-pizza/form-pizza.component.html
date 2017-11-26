@@ -1,3 +1,27 @@
-<p>
-  form-pizza works!
-</p>
+<div class="c-card">
+  <div class="c-card__item">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <p class="o-form-element" [hidden] = "true">
+        <label class="c-label">ID :</label>
+        <input class="c-field"  type="text" formControlName="_id">
+      </p>
+      <p class="o-form-element">
+        <label class="c-label">Nom :</label>
+        <input class="c-field"  type="text" formControlName="name">
+      </p>
+      <p class="o-form-element">
+        <label class="c-label">Description:</label>
+        <input class="c-field"  type="text" formControlName="description">
+      </p>
+      <p class="o-form-element">
+        <label class="c-label">Image : </label>
+        <input class="c-field" type="text" formControlName="image">
+      </p>
+      <p class="o-form-element">
+        <label class="c-label">Prix : </label>
+        <input class="c-field" placeholder="ex: 11.60€" type="number" formControlName="price">
+      </p>
+      <button type="submit" class="c-button c-button--info c-button--block">Save</button>
+    </form>
+  </div>
+</div>

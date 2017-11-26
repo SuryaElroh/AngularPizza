@@ -1,37 +1,66 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ContactService } from '../../service/contact.service';
+import { IngredientService } from '../../service/ingredient.service';
 import { Router } from '@angular/router';
-import { Contact } from '../../model/contact';
+import { Ingredient } from '../../model/ingredient';
 import { ActivatedRoute } from '@angular/router';
+import { Observable } from "rxjs";
 
 @Component({
-  selector: 'app-contact-form',
-  templateUrl: './contact-form.component.html',
-  styleUrls: ['./contact-form.component.css']
+  selector: 'app-ingredient-form',
+  templateUrl: './ingredient-form.component.html',
+  styleUrls: ['./ingredient-form.component.css']
 })
 
-export class ContactFormComponent implements OnInit {
+export class IngredientFormComponent implements OnInit {
   private form: FormGroup;
-  private contact: Contact;
+  private ingredient: Ingredient;
 
-  constructor(private route: ActivatedRoute, private contactService : ContactService, private router: Router) { }
+  constructor(private route: ActivatedRoute, private ingredientService : IngredientService, private router: Router) { }
 
   ngOnInit() {
+    /**
+     * Received the id passed in the url
+     */
     let id = this.route.snapshot.params['id'];
-    this.contact = this.contactService.getOne(id);
 
+    /**
+     * Create a new form that verifies data and matches it
+     */
     this.form = new FormGroup({
       _id: new FormControl(id),
-      name: new FormControl(this.contact.name, [Validators.minLength(2), Validators.required]),
-      lastname: new FormControl(this.contact.lastname, [Validators.minLength(2), Validators.required]),
-      phone: new FormControl(this.contact.phone, Validators.minLength(10)),
-      adress: new FormControl(this.contact.adress, Validators.minLength(5))
+      name: new FormControl('', [Validators.minLength(2), Validators.maxLength(20), Validators.required]),
+      weight: new FormControl('', [Validators.minLength(2), Validators.maxLength(3), Validators.required]),
+      price: new FormControl('', [Validators.minLength(2), Validators.maxLength(3), Validators.required])
     })
+
+    /**
+     * If an id has been received it get all the details
+     */
+    if(id) {
+      this.ingredientService.getOne(id).subscribe((data) => {
+        this.form.patchValue(data);
+      })
+    }
   }
 
+  /*
+   * Add the received ingredient if new one
+   * Update the received ingredient if already in DB
+   */
   onSubmit(){
-    this.contactService.add(this.form.value);
-    this.router.navigate(['contact-list']);
+    if(this.form.value._id){
+      this.ingredientService.modify(this.form.value).subscribe(() => {
+        this.router.navigate(['ingredient/list']);
+      }, (error) => {
+        console.log(error);
+      });
+    } else {
+      this.ingredientService.add(this.form.value).subscribe(() => {
+        this.router.navigate(['ingredient/list']);
+      }, (error) => {
+        console.log(error);
+      });
+    }
   }
 }

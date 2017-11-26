@@ -1,3 +1,19 @@
-<p>
-  list-pizza works!
-</p>
+<br>
+<div class="u-center-block c-card page-middle" *ngFor="let pizza of pizzas">
+  <div class="c-card__item">
+    <img [src]="pizza.image" width="100%">
+    <div class="o-grid o-grid--demo">
+      <div class="o-grid__cell o-grid__cell--width-75">
+        <div class="o-grid-text">
+          <h2>{{ pizza.name }}</h2>
+        </div>
+      </div>
+      <div class="o-grid__cell">
+        <div class="o-grid-text">
+          <p>{{ pizza.price }}</p>
+        </div>
+      </div>
+    </div>
+    <button type="button" routerLink="/pizza/details/{{ pizza._id }}" class="c-button c-button--ghost-info">Details</button>
+  </div>
+</div>

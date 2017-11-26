@@ -1,3 +1,30 @@
-<p>
-  list-ingredient works!
-</p>
+<br>
+<div class="c-alert c-alert--success page-middle" *ngIf="success">
+  <button class="c-button c-button--close" (click)="close()">&times;</button>
+  Nouvel ingrédient
+</div>
+<input class="c-field page-middle"  placeholder="Rechercher un ingrédient..." type="text" disabled/>
+<button routerLink="/ingredient/add" class="c-button c-button--ghost-info c-button--block page-middle">Ajouter un ingrédient</button>
+
+<div class="u-center-block c-card page-middle"  *ngFor="let ingredient of ingredients">
+  <div class="c-card__item">
+    <div class="o-grid o-grid--demo">
+      <div class="o-grid__cell o-grid__cell--width-25 imp">
+        <p>{{ ingredient.name }}</p>
+      </div>
+      <div class="o-grid__cell o-grid__cell--width-25">
+        <p class="center-align">Poids : {{ ingredient.weight }} g</p>
+      </div>
+      <div class="o-grid__cell o-grid__cell--width-25">
+        <p class="center-align"><strong>Prix : {{ ingredient.price / 100 }} €</strong></p>
+      </div>
+      <div class="o-grid__cell o-grid__cell--width-25">
+        <div class="o-grid o-grid--demo rgt">
+          <button routerLink="/ingredient/modify/{{ ingredient._id }}" class="c-button c-button--ghost-info space">Modifier</button>
+          <button (click)="delete(ingredient._id)" class="c-button c-button--ghost-error">Supprimer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
